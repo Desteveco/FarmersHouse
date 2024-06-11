@@ -27,13 +27,13 @@ public class ServiceTest {
         Assertions.assertThat(fruta.getId()).isEqualTo(1000);
     }
 
-/* 
+
     // @Test de jupiter, no el de junit
     @Test
     public void testList() {
         Assertions.assertThat(service.list()).hasSize(2);
     }
-
+ 
 
     @Test
     public void containsTest() {
@@ -104,5 +104,5 @@ public class ServiceTest {
     }
 
 
-*/  
+
 }
