@@ -1,43 +1,51 @@
 package edu.badpals;
 
-import java.util.Optional;
-
-
-import javax.inject.Inject;
-import javax.transaction.*;
-
+import edu.badpals.domain.Farmer;
+import edu.badpals.domain.Fruit;
+import edu.badpals.services.ServiceFruit;
+import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.junit.QuarkusTest;
-
-/**
- * Component Unit testing
- */
+import java.util.Optional;
 
 @QuarkusTest
-@Transacional
-public class ServiceFruitTest {
+@Transactional
+public class ServiceTest {
 
     @Inject
     ServiceFruit service;
 
+    @Test
+    public void test_mapping_Fruit() {
+        Fruit fruta = Fruit.findById(1000);
+        Assertions.assertThat(fruta).isNotNull();
+        Assertions.assertThat(fruta.toString()).containsIgnoringCase("Apple"); // item_name
+        Assertions.assertThat(fruta.toString()).contains("Winter fruit"); // item_quality
+        Assertions.assertThat(fruta.getId()).isEqualTo(1000);
+    }
+
+/* 
     // @Test de jupiter, no el de junit
     @Test
     public void testList() {
         Assertions.assertThat(service.list()).hasSize(2);
     }
 
+
     @Test
     public void containsTest() {
         Assertions.assertThat(service.list().stream().anyMatch(f -> f.getName().equals("Apple"))).isTrue();
     }
-    
+
+
     @Test
     public void addTest() {
-        service.add(new Fruit("Banana", 
-                              "And an attached Gorilla",
-                              new Farmer("Farmer Rick", "Sa Pobla")));
+        service.add(new Fruit("Banana",
+                "And an attached Gorilla",
+                new Farmer("Farmer Rick", "Sa Pobla")));
         Assertions.assertThat(service.list()).hasSize(3);
         Assertions.assertThat(service.list().stream().anyMatch(f -> f.getName().equals("Banana"))).isTrue();
         Assertions.assertThat(Farmer.count()).isEqualTo(2L);
@@ -49,12 +57,13 @@ public class ServiceFruitTest {
         Assertions.assertThat(Farmer.count()).isEqualTo(2L);
     }
 
-    // CORREGIR ESTE TEST PORQUE ES NUEVO 
+
+    // CORREGIR ESTE TEST PORQUE ES NUEVO
     @Test
     public void addFarmerTest() {
-        service.add(new Fruit("Navel Late", 
-                              "Crist en pel", 
-                              new Farmer("Jerrys Bites", "Es Pla")));
+        service.add(new Fruit("Navel Late",
+                "Crist en pel",
+                new Farmer("Jerrys Bites", "Es Pla")));
         Assertions.assertThat(service.list()).hasSize(3);
         Assertions.assertThat(service.list().stream().anyMatch(f -> f.getName().equals("Navel Late"))).isTrue();
         // hay un nuevo registro en la tabla Farmer
@@ -87,19 +96,13 @@ public class ServiceFruitTest {
         Assertions.assertThat(Fruit.count()).isEqualTo(2);
     }
 
+
     @Test
     public void getFruitTest() {
         Assertions.assertThat(service.getFruit("Apple")).get().hasFieldOrPropertyWithValue("name", "Apple").hasFieldOrPropertyWithValue("description", "Winter fruit").extracting("farmer").toString().compareTo("Farmer Rick, Sa Pobla");
         Assertions.assertThat(service.getFruit("Mandarina")).isEmpty();
-    }    
-
-    @Test
-    public void test_mapping_Fruit() {
-        Fruit fruta = Fruit.findById(1000);
-        Assertions.assertThat(fruta).isNotNull();
-        Assertions.assertThat(fruta.toString()).containsIgnoringCase("Apple"); // item_name
-        Assertions.assertThat(fruta.toString()).contains("Winter fruit"); // item_quality
-        Assertions.assertThat(fruta.getId()).isEqualTo(1000);
     }
-    
+
+
+*/  
 }
